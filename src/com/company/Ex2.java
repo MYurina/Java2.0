@@ -6,7 +6,6 @@ public class Ex2 {
 
     public static void main(String[] args) {
         double result = 0;
-
         Scanner in = new Scanner(System.in);//Инициализация объекта in класса Scanner
         System.out.println("Введите первое число: ");
         double x = in.nextDouble();//Чтение типа числа double с консоля
