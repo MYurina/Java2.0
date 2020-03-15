@@ -10,14 +10,12 @@ public class Calculator {
     public Calculator(String expression) {
         this.expression = expression;
     }
-    public void startCalculator() {
-        if (checkExpression(expression)) {
-            result = calculate();
-            System.out.print("Результат: " + result + "\n");
-        } else {
-            System.err.println("Выражение введено неверно");
-            System.exit(0);
-        }
+
+    /**
+     * Метод для запуска программы "Калькулятор"
+     */
+    public double startCalculator() {
+        return calculate();
     }
 
     private double calculate() {
@@ -86,7 +84,7 @@ public class Calculator {
         if (expression.contains(",")) expression = expression.replace(",", ".");
     }
 
-    private void operations(List<String> subExpression) {
+    private void operations(List<String> subExpression){
         while (true) {
             if (subExpression.contains("*") || subExpression.contains("/") || subExpression.contains("+") || subExpression.contains("-")) {
                 for (int i = 0; i < subExpression.size(); i++) {
@@ -96,19 +94,12 @@ public class Calculator {
                             substitution(subExpression, i);
                             break;
                         case "/":
-                            //Обработка ошибки
-                           try {
-                                double denominator = Double.parseDouble(subExpression.get(i + 1)); //знаменатель
-                                if (denominator == 0) {
-                                    throw new ArithmeticException();
-                                } else {
-                                    //int h = 7/0;
-;                                    result = Double.parseDouble(subExpression.get(i - 1)) / denominator;
-                                    substitution(subExpression, i);
-                                }
-                           } catch (ArithmeticException e) {
-                              System.err.println("На ноль делить нельзя");
-                                System.exit(0);
+                           double denominator = Double.parseDouble(subExpression.get(i + 1)); //знаменатель
+                            if (denominator == 0) {
+                                throw new ArithmeticException();
+                            } else {
+                                result = Double.parseDouble(subExpression.get(i - 1)) / denominator;
+                                substitution(subExpression, i);
                             }
                             break;
                         case "+":
@@ -125,6 +116,7 @@ public class Calculator {
                 break;
             }
         }
+
     }
 
     //Замена выражение на получившееся значение
@@ -136,14 +128,6 @@ public class Calculator {
         list.add(i - 1, String.valueOf(result));
     }
 
-    private boolean checkExpression(String expression) {
-        //регулярное выражение: [] - которое в кфадратных скобках
-        // 0-9- в выражениее должны встречаться числа от 0 до 9
-        // "\\-" поиск символа "-"
-        // после [] квантификатор "+" означает - появление один и более раза
-        String regex = "[0-9+\\-=*/,.()]+";
-        return expression.matches(regex);
-    }
 
     public double getResult() {
         return result;

@@ -7,6 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CalculatorTest {
+
+    @Before
+    public void setUp() {
+    }
+
     //Проверка сложение
     @Test
     public void startCalculatorAddition() {
@@ -17,7 +22,7 @@ public class CalculatorTest {
         //act
         calculator.startCalculator();
         //assert
-        Assert.assertEquals(calculator.getResult(),expectedResult, 0.00001);
+        Assert.assertEquals(expectedResult, calculator.getResult(), 0.00001);
     }
 
     //Проверка вычитания
